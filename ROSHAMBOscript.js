@@ -5,6 +5,9 @@
 // step 1 getting the computers choice 
 
 function GetComputerChoice() {
+
+    //for debugging purposes 1 is rock 2 is paper and 3 is scissors
+
     let choice = Math.floor(Math.random() * 3) + 1;
     if (choice === 1) {
         return "rock";
@@ -37,7 +40,7 @@ function GetPlayerChoice() {
 
 function playround() {
 
-    // step 3 setting the scores to zero to use later
+    //setting the scores to zero to use later
 
     let player_score = 0
 
@@ -46,7 +49,6 @@ function playround() {
 
     while (player_score < 5 && bot_score < 5) {
 
-        //for debugging purposes 1 is rock 2 is paper and 3 is scissors
     
         let player_choice = GetPlayerChoice();
         let bot_choice = GetComputerChoice();
