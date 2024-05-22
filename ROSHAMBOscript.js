@@ -1,83 +1,93 @@
+//odin project rock paper scissors attempt, i did mine a little different 
+//but it still works.
 
-// getting the computers choice 
+
+// step 1 getting the computers choice 
 
 function GetComputerChoice() {
     let choice = Math.floor(Math.random() * 3) + 1;
-    return choice
+    if (choice === 1) {
+        return "rock";
+    } else if (choice === 2) {
+        return "paper";
+    } else {
+        return "scissors";
+    }
 }
 
 
-//getting the player choice
+// step 2 getting the player choice
 
 function GetPlayerChoice() {
-    let player_choice = parseInt(prompt("choose either Rock(1) paper(2) scissors(3)"));
-    return player_choice
-
-}
-
-// setting the scores to zero to use later
-let player_score = 0
-
-let bot_score = 0
-
-
-//controlling the logic with a while loop
-
-while (player_score < 5 || bot_score < 5) {
-    let player_choice = GetPlayerChoice();
-    let bot_choice = GetComputerChoice();
-
-    if (player_choice == bot_choice) {
-        console.log("DRAW No points for either side.")
-        console.log(`Player score: ${player_score}\n Bot score: ${bot_score}`)
+    let player_choice = prompt("Please enter Rock Paper or Scissors").toLowerCase()
+    while (player_choice !== "rock" && player_choice !== "paper" && player_choice !== "scissors") {
+        player_choice = prompt("Invalid choice. Please choose either Rock, Paper, or Scissors").toLowerCase();
     }
-    
-    else if (player_choice == 1 && bot_choice == 2) {
-        console.log("Paper beats Rock. 1 point for COM")
-        bot_score ++
-        console.log(`Player score: ${player_score}\n Bot score: ${bot_score}`)
-    } 
-    
-    else if (player_choice == 1 && bot_choice == 3) {
-        console.log("Rock beats Scissors. 1 point for Player")
-        player_score ++
-        console.log(`Player score: ${player_score}\n Bot score: ${bot_score}`)
-    } 
-    
-    else if (player_choice == 2 && bot_choice == 1) {
-        console.log("Paper beats Rock. 1 point for Player")
-        player_score ++
-        console.log(`Player score: ${player_score}\n Bot score: ${bot_score}`)
-    } 
-    
-    else if (player_choice == 2 && bot_choice == 3) {
-        console.log("Scissors beats Paper. 1 point for COM")
-        bot_score ++
-        console.log(`Player score: ${player_score}\n Bot score: ${bot_score}`)
-    } 
-    
-    else if (player_choice == 3 && bot_choice == 1) {
-        console.log("Rock beats Scissors. 1 point for COM")
-        bot_score ++
-        console.log(`Player score: ${player_score}\n Bot score: ${bot_score}`)
-    } 
-    
-    else if (player_choice == 3 && bot_choice == 2) {
-        console.log("Paper beats Rock. 1 point for Player")
-        player_score ++
-        console.log(`Player score: ${player_score}\n Bot score: ${bot_score}`)  
-    } 
-    
-    else {
-        console.log("ERROR: Enter (1) for rock, (2) for paper, (3) for scissors.")
-    }        
+    return player_choice;
+
 }
 
-//displaying the victor
 
-if (player_score == 3) {
-    console.log("CONGRATS YOU WON!")
-} else {
-    console.log("Too bad COM one...")
+
+
+// Step 3 controlling the logic with a function containting a while loop and if statement
+
+//ps i have genuinely no idea how the and operator here makes it act like an or operator
+//i just know it works.
+
+function playround() {
+
+    // step 3 setting the scores to zero to use later
+
+    let player_score = 0
+
+    let bot_score = 0
+
+
+    while (player_score < 5 && bot_score < 5) {
+
+        //for debugging purposes 1 is rock 2 is paper and 3 is scissors
+    
+        let player_choice = GetPlayerChoice();
+        let bot_choice = GetComputerChoice();
+    
+        if (player_choice === bot_choice) {
+            console.log("It's a draw. No points for either side.");
+            console.log(`Player score: ${player_score} Bot score: ${bot_score}`);
+        } else if (
+            (player_choice === "rock" && bot_choice === "scissors") ||
+            (player_choice === "paper" && bot_choice === "rock") ||
+            (player_choice === "scissors" && bot_choice === "paper")
+        ) {
+            console.log(`${player_choice} beats ${bot_choice}. 1 point for Player.`);
+            player_score++;
+            console.log(`Player score: ${player_score} Bot score: ${bot_score}`);
+        } else {
+            console.log(`${bot_choice} beats ${player_choice}. 1 point for Computer.`);
+            bot_score++;
+            console.log(`Player score: ${player_score} Bot score: ${bot_score}`);
+        }
+    }
+
+    //displaying the victor
+
+    if (player_score == 5) {
+        console.log("CONGRATS YOU WON!")
+    } else {
+        console.log("Too bad COM one...")
+    }
+
+} 
+
+
+
+
+//step 4 last function that runs the game.
+function playGame() {
+    playround();
 }
+
+//final step call the playgame function
+
+playGame();
 
