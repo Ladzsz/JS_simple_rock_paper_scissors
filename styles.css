@@ -1,0 +1,33 @@
+/* HTML Page */
+body {
+    background-color: #1a1a1a; /* Dark Gray */
+    color: #ffffff; /* White */
+    font-family: Arial, sans-serif;
+}
+
+/* Button Styles */
+button {
+    cursor: pointer;
+    padding: 15px 25px; 
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+}
+
+/* Rock Button */
+#rock {
+    background-color: #333333; /* Rock Gray */
+    color: #ffffff; /* White */
+}
+
+/* Paper Button */
+#paper {
+    background-color: #1E3A8A; /* Paper Blue */
+    color: #ffffff; /* White */
+}
+
+/* Scissors Button */
+#scissors {
+    background-color: #6F42C1; /* Scissors Purple */
+    color: #ffffff; /* White */
+}
