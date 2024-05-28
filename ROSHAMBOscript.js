@@ -1,8 +1,19 @@
-//odin project rock paper scissors attempt, i did mine a little different 
-//but it still works.
+// Get references to the buttons
+const rockButton = document.getElementById('rock');
+const paperButton = document.getElementById('paper');
+const scissorsButton = document.getElementById('scissors');
 
+// Get references to the display and score divs and victory div
+const displayDiv = document.getElementById('display');
+const scoreDiv = document.getElementById('score');
+const victoryDiv = document.getElementById('victory');
 
-// step 1 getting the computers choice 
+// Variables to store scores
+let playerScore = 0;
+let botScore = 0;
+
+// Function to get the computer's choice
+
 
 function GetComputerChoice() {
 
@@ -18,78 +29,52 @@ function GetComputerChoice() {
     }
 }
 
+// Function to handle a round of the game
+function playRound(playerChoice) {
+    const botChoice = GetComputerChoice();
 
-// step 2 getting the player choice
-
-function GetPlayerChoice() {
-    let player_choice = prompt("Please enter Rock Paper or Scissors").toLowerCase()
-    while (player_choice !== "rock" && player_choice !== "paper" && player_choice !== "scissors") {
-        player_choice = prompt("Invalid choice. Please choose either Rock, Paper, or Scissors").toLowerCase();
-    }
-    return player_choice;
-
-}
-
-
-
-
-// Step 3 controlling the logic with a function containting a while loop and if statement
-
-//ps i have genuinely no idea how the and operator here makes it act like an or operator
-//i just know it works.
-
-function playround() {
-
-    //setting the scores to zero to use later
-
-    let player_score = 0
-
-    let bot_score = 0
-
-
-    while (player_score < 5 && bot_score < 5) {
-
-    
-        let player_choice = GetPlayerChoice();
-        let bot_choice = GetComputerChoice();
-    
-        if (player_choice === bot_choice) {
-            console.log("It's a draw. No points for either side.");
-            console.log(`Player score: ${player_score} Bot score: ${bot_score}`);
-        } else if (
-            (player_choice === "rock" && bot_choice === "scissors") ||
-            (player_choice === "paper" && bot_choice === "rock") ||
-            (player_choice === "scissors" && bot_choice === "paper")
-        ) {
-            console.log(`${player_choice} beats ${bot_choice}. 1 point for Player.`);
-            player_score++;
-            console.log(`Player score: ${player_score} Bot score: ${bot_score}`);
-        } else {
-            console.log(`${bot_choice} beats ${player_choice}. 1 point for Computer.`);
-            bot_score++;
-            console.log(`Player score: ${player_score} Bot score: ${bot_score}`);
-        }
-    }
-
-    //displaying the victor
-
-    if (player_score == 5) {
-        console.log("CONGRATS YOU WON!")
+    if (playerChoice === botChoice) {
+        displayDiv.textContent = "It's a draw. No points for either side.";
+    } else if (
+        (playerChoice === 'rock' && botChoice === 'scissors') ||
+        (playerChoice === 'paper' && botChoice === 'rock') ||
+        (playerChoice === 'scissors' && botChoice === 'paper')
+    ) {
+        displayDiv.textContent = `${playerChoice} beats ${botChoice}. 1 point for Player.`;
+        playerScore++;
     } else {
-        console.log("Too bad COM one...")
+        displayDiv.textContent = `${botChoice} beats ${playerChoice}. 1 point for Computer.`;
+        botScore++;
     }
 
-} 
+    // Update score display
+    scoreDiv.textContent = `Player score: ${playerScore} Bot score: ${botScore}`;
 
-
-
-
-//step 4 last function that runs the game.
-function playGame() {
-    playround();
+    // Check for victory
+    if (playerScore === 5) {
+        victoryDiv.textContent = "Congrats! You won!";
+    } else if (botScore === 5) {
+        victoryDiv.textContent = "Too bad COM won....";
+    } else {
+        victoryDiv.textContent = "game in progress!"
+    }
 }
 
-//final step call the playgame function
+// Event listeners for player choice buttons
+rockButton.addEventListener('click', function() {
+    if (playerScore < 5 && botScore < 5) {
+        playRound('rock');
+    }
+});
 
-playGame();
+paperButton.addEventListener('click', function() {
+    if (playerScore < 5 && botScore < 5) {
+        playRound('paper');
+    }
+});
 
+scissorsButton.addEventListener('click', function() {
+    if (playerScore < 5 && botScore < 5) {
+        playRound('scissors');
+    }
+});
